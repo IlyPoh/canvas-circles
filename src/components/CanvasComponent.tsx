@@ -17,7 +17,7 @@ export const CanvasComponent: React.FC = () => {
   const intervalRef = useRef<number | null>(null);
   const animationRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mousePositionRef = useRef<{ x: number; y: number } | null>(null);
+  const mousePositionRef = useRef<TCoords | null>(null);
   const [canvas, setCanvas] = useState<CanvasRenderingContext2D | null>(null);
 
   const [circles, setCircles] = useState<Circle[]>([]);

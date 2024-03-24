@@ -1,7 +1,7 @@
 import { TCircle, TCoords } from "@/types";
 
 export class Circle {
-  position: { x: number; y: number };
+  position: TCoords;
   radius: number;
   dx: number;
   dy: number;
