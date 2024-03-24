@@ -4,8 +4,8 @@ import { TCoords } from "@/types";
 
 const createNewCircle = (
   circleRadius: number,
-  windowPaddingForCircle: number,
-  coords?: TCoords
+  coords?: TCoords,
+  windowPaddingForCircle: number = circleRadius * 2
 ) => {
   const randomX = Math.floor(
     Math.random() * (window.innerWidth - windowPaddingForCircle) + circleRadius

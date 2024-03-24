@@ -11,7 +11,6 @@ import { TCoords } from "@/types";
 const lineWidth = 2;
 const circleRadius = 4;
 const numberOfCirclesByDefault = 5;
-const windowPaddingForCircle = circleRadius * 2;
 
 // COMPONENT
 export const CanvasComponent: React.FC = () => {
@@ -32,7 +31,7 @@ export const CanvasComponent: React.FC = () => {
 
     const initializeCircles = () => {
       const newCircles = Array.from({ length: numberOfCircles }, () => {
-        return createNewCircle(circleRadius, windowPaddingForCircle);
+        return createNewCircle(circleRadius);
       });
       setCircles(newCircles);
     };
@@ -57,13 +56,18 @@ export const CanvasComponent: React.FC = () => {
       circles.forEach(circle => circle.update(canvas));
 
       for (let i = 0; i < circles.length; i++) {
+        const maxDistanceToMouse = 300;
+
+        // Draw line to mouse
         circles[i].drawLineToCoords(
           canvas,
           mousePositionRef.current!,
-          lineWidth
+          lineWidth,
+          maxDistanceToMouse
         );
 
         for (let j = i + 1; j < circles.length; j++) {
+          // Draw lines between circles
           circles[i].drawLineToCoords(canvas, circles[j].position, lineWidth);
         }
       }
@@ -92,11 +96,7 @@ export const CanvasComponent: React.FC = () => {
 
   const addCircle = (coords: TCoords) => {
     setNumberOfCircles(prev => prev + 1);
-    const newCircle = createNewCircle(
-      circleRadius,
-      windowPaddingForCircle,
-      coords
-    );
+    const newCircle = createNewCircle(circleRadius, coords);
     setCircles(prevCircles => [...prevCircles, newCircle]);
   };
 

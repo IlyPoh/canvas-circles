@@ -81,17 +81,18 @@ export class Circle {
   public drawLineToCoords(
     canvas: CanvasRenderingContext2D,
     coords: TCoords,
-    width: number = 1
+    width: number = 1,
+    maxDistance?: number
   ) {
     if (!coords) return;
     const distance = this.distanceTo(coords);
     const {
       position: { x, y },
-      maxDistance,
       minDistance,
     } = this;
     const { x: otherX, y: otherY } = coords;
     let opacity;
+    maxDistance = maxDistance ?? this.maxDistance;
 
     if (distance > maxDistance) {
       opacity = 0;
