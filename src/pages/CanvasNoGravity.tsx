@@ -1,11 +1,9 @@
 // IMPORTS
 import { useEffect, useRef, useState } from "react";
 
-import { Circle } from "@/classes/Сircle";
-
 import createNewCircle from "@/helpers/createNewCircle";
 
-import { TCoords } from "@/types";
+import { TCircle, TCoords } from "@/types";
 
 // CONSTANTS
 const lineWidth = 2;
@@ -13,14 +11,14 @@ const circleRadius = 4;
 const numberOfCirclesByDefault = 5;
 
 // COMPONENT
-export const CanvasComponent: React.FC = () => {
+export const CanvasNoGravity: React.FC = () => {
   const intervalRef = useRef<number | null>(null);
   const animationRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mousePositionRef = useRef<TCoords | null>(null);
   const [canvas, setCanvas] = useState<CanvasRenderingContext2D | null>(null);
 
-  const [circles, setCircles] = useState<Circle[]>([]);
+  const [circles, setCircles] = useState<TCircle[]>([]);
   const [numberOfCircles, setNumberOfCircles] = useState(
     numberOfCirclesByDefault
   );
@@ -31,7 +29,7 @@ export const CanvasComponent: React.FC = () => {
 
     const initializeCircles = () => {
       const newCircles = Array.from({ length: numberOfCircles }, () => {
-        return createNewCircle(circleRadius);
+        return createNewCircle({ circleRadius });
       });
       setCircles(newCircles);
     };
@@ -53,7 +51,9 @@ export const CanvasComponent: React.FC = () => {
         setCircles(updatedCircles);
       }
 
-      circles.forEach(circle => circle.update(canvas));
+      circles.forEach(circle => {
+        circle.update(canvas);
+      });
 
       for (let i = 0; i < circles.length; i++) {
         const maxDistanceToMouse = 300;
@@ -96,7 +96,7 @@ export const CanvasComponent: React.FC = () => {
 
   const addCircle = (coords: TCoords) => {
     setNumberOfCircles(prev => prev + 1);
-    const newCircle = createNewCircle(circleRadius, coords);
+    const newCircle = createNewCircle({ circleRadius, coords });
     setCircles(prevCircles => [...prevCircles, newCircle]);
   };
 
