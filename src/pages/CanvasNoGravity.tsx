@@ -25,6 +25,7 @@ export const CanvasNoGravity: React.FC = () => {
 
   useEffect(() => {
     setCanvas(canvasRef.current!.getContext("2d"));
+
     if (!canvas) return;
 
     const initializeCircles = () => {

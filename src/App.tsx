@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { Layout } from "@/components/Layout";
 
@@ -10,7 +10,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route
+          index
+          // element={<Home />}
+          element={<Navigate to={"/canvas-no-gravity"} />}
+        />
         <Route path="canvas-no-gravity" element={<CanvasNoGravity />} />
         <Route
           path="collision-detection"
